@@ -1,47 +1,39 @@
-buildscript {
-    ext {
-        springBootVersion = "2.0.0.M4"
-        awsJavaSdkVersion = "1.11.196"
-        apacheCommonsLangVersion = "3.6"
-        jsoupVersion = "1.10.3"
-        amazonSqsLibVersion = "1.0.4"
-        wiremockVersion = "2.8.0"
-    }
-    repositories {
-        mavenCentral()
-        maven {url "https://repo.spring.io/snapshot"}
-        maven {url "https://repo.spring.io/milestone"}
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+group 'info.jackdpeterson'
+version = "0.0.1-SNAPSHOT"
+
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
     }
 }
-
-apply plugin: "java"
-apply plugin: "eclipse"
-apply plugin: "org.springframework.boot"
-apply plugin: "io.spring.dependency-management"
-
-version = "0.0.1-SNAPSHOT"
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {url "https://repo.spring.io/snapshot"}
-    maven {url "https://repo.spring.io/milestone"}
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-webflux")
-    compile("org.springframework:spring-jms")
-    compile("org.jsoup:jsoup:${jsoupVersion}")
-    compile("org.apache.commons:commons-lang3:${apacheCommonsLangVersion}")
-    compile("com.amazonaws:aws-java-sdk:${awsJavaSdkVersion}")
-    compile("com.amazonaws:aws-java-sdk-dynamodb:${awsJavaSdkVersion}")
-    compile("com.amazonaws:aws-java-sdk-sqs:${awsJavaSdkVersion}")
-    compile("com.amazonaws:amazon-sqs-java-messaging-lib:${amazonSqsLibVersion}")
-    runtime("org.springframework.boot:spring-boot-devtools")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("io.projectreactor:reactor-test")
-    testCompile("com.github.tomakehurst:wiremock:${wiremockVersion}")
+    implementation "org.springframework.boot:spring-boot-starter-webflux"
+    implementation "org.springframework:spring-jms"
+    implementation "org.jsoup:jsoup:1.14.3"
+    implementation "org.apache.commons:commons-lang3:3.12.0"
+    implementation "com.amazonaws:aws-java-sdk:1.12.131"
+    implementation "com.amazonaws:aws-java-sdk-dynamodb:1.12.131"
+    implementation "com.amazonaws:aws-java-sdk-sqs:1.12.131"
+    implementation "com.amazonaws:amazon-sqs-java-messaging-lib:1.0.8"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "io.projectreactor:reactor-test"
+    testImplementation "com.github.tomakehurst:wiremock:2.27.2"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
 }

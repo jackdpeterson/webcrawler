@@ -3,8 +3,8 @@ package com.hafidsousa.webcrawler.controller;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsync;
 import com.hafidsousa.webcrawler.model.Profiles;
 import com.hafidsousa.webcrawler.service.ICrawlerService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +39,7 @@ public class CrawlerControllerTest {
     @MockBean
     private AmazonDynamoDBAsync amazonDynamoDBAsync;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
 
         webTestClient = WebTestClient.bindToController(crawlerController).build();
